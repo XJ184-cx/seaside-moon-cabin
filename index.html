@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1a2b" />
+    <meta
+      name="description"
+      content="海边见月 —— 一座可以逃离现实的私人海岛。低多边形微缩海边小屋，昼夜与天气实时切换。"
+    />
+    <title>海边见月 · 一座微缩海岸</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230c2134'/%3E%3Cpath d='M41 15a18 18 0 1 0 9 29 15 15 0 0 1-9-29Z' fill='%23ffdca8'/%3E%3Cpath d='M10 45c7-6 13 6 20 0s13 6 24-2' fill='none' stroke='%2375cfd0' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+    <script type="module" crossorigin src="./assets/index-DGTJlzF6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CvS7SsNW.css">
+  </head>
+  <body data-time="day" data-weather="clear">
+    <div id="app">
+      <div id="stage" aria-label="海边见月 · 可交互 3D 微缩海岛场景"></div>
+
+      <div class="scene-wash" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 52 52" fill="none">
+              <circle cx="26" cy="26" r="25" stroke="currentColor" stroke-opacity=".22" />
+              <path
+                d="M31.5 12.5a15.5 15.5 0 1 0 8 25.2 12.6 12.6 0 0 1-8-25.2Z"
+                fill="currentColor"
+                fill-opacity=".92"
+              />
+              <path
+                d="M10 37.2c4.4-3.6 7.4 2.7 11.6.1 4.1-2.5 6.8 2.4 10.3.6 3.4-1.8 5.2-.7 8.4-2.5"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                opacity=".72"
+              />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <p class="brand-eyebrow">SEASIDE LETTERS <span>·</span> 私藏海岸</p>
+            <h1>海边见月<span>。</span></h1>
+            <p class="tagline">海风来信，月光落在海面上。</p>
+          </div>
+        </div>
+
+        <nav class="time-switcher glass" aria-label="切换一天中的时刻">
+          <span class="time-switcher__label">此刻</span>
+          <button class="time-btn is-active" type="button" data-time="day" aria-pressed="true">
+            <span class="time-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="4.1" stroke="currentColor" stroke-width="1.4" />
+                <path d="M12 2.8v2.6M12 18.6v2.6M2.8 12h2.6M18.6 12h2.6M5.5 5.5l1.8 1.8M16.7 16.7l1.8 1.8M18.5 5.5l-1.8 1.8M7.3 16.7l-1.8 1.8" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="time-btn__label">白天</span>
+          </button>
+          <button class="time-btn" type="button" data-time="sunset" aria-pressed="false">
+            <span class="time-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7.2 15.1a4.8 4.8 0 0 1 9.6 0" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+                <path d="M2.8 15.2h18.4M5.2 18.3h13.6M12 4.2v2.7M5.5 6.9l1.9 1.9M18.5 6.9l-1.9 1.9" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="time-btn__label">日落</span>
+          </button>
+          <button class="time-btn" type="button" data-time="night" aria-pressed="false">
+            <span class="time-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M18.8 15.7A8.2 8.2 0 0 1 8.3 5.2a8.6 8.6 0 1 0 10.5 10.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+                <path d="M17.8 4.4v2.1M16.8 5.4h2.1" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" opacity=".72" />
+              </svg>
+            </span>
+            <span class="time-btn__label">夜晚</span>
+          </button>
+        </nav>
+      </header>
+
+      <div class="chapter-mark" aria-hidden="true">
+        <span>01</span>
+        <i></i>
+        <span>A SMALL ISLAND</span>
+      </div>
+
+      <p class="gesture-hint" id="gestureHint">
+        <span class="gesture-hint__dot"></span>
+        拖动旋转 · 滚轮缩放 · 轻点小屋、篝火与海面
+      </p>
+
+      <aside class="weather-card glass" aria-label="海岸天气">
+        <button class="weather-main" id="weatherToggle" type="button" title="切换天气：晴间微风 / 海雾 / 下雨">
+          <span class="weather-icon" id="weatherIcon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="5.4" stroke="currentColor" stroke-width="1.5" />
+              <path d="M16 4.2v3M16 24.8v3M4.2 16h3M24.8 16h3M7.7 7.7l2.1 2.1M22.2 22.2l2.1 2.1M24.3 7.7l-2.1 2.1M9.8 22.2l-2.1 2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span class="weather-copy">
+            <span class="weather-eyebrow">COAST WEATHER <i id="weatherAction">· 点击切换</i></span>
+            <strong id="weatherName">晴间微风</strong>
+          </span>
+          <span class="weather-swap" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M4 7a6 6 0 0 1 10.8-1M16 13A6 6 0 0 1 5.2 14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              <path d="M14.5 2.8v3.4h-3.4M5.5 17.2v-3.4h3.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </button>
+        <div class="weather-meta">
+          <span class="wind" id="breezeText">
+            <svg viewBox="0 0 24 12" fill="none" aria-hidden="true">
+              <path d="M1 7c3-5 5.5 4 8.5 0S15 3 18 6s3-1 5-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            </svg>
+            东南风 · 3.2 m/s
+          </span>
+          <span class="tide" id="tideText">潮汐 · 轻浪</span>
+        </div>
+        <div class="weather-wave" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </aside>
+
+      <div class="control-dock glass" aria-label="场景控制">
+        <button class="dock-btn" id="resetView" type="button" title="恢复到初始视角">
+          <span class="dock-btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4.8 9a8 8 0 1 1-.5 4.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M4.4 4.8V9h4.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="12" cy="12" r="2.2" fill="currentColor" fill-opacity=".8" />
+            </svg>
+          </span>
+          <span class="dock-btn__text">复位视角</span>
+        </button>
+        <span class="dock-divider" aria-hidden="true"></span>
+        <button class="dock-btn sound-btn" id="soundToggle" type="button" title="开启或关闭环境音" aria-pressed="false">
+          <span class="dock-btn__icon" aria-hidden="true">
+            <svg class="icon-volume" viewBox="0 0 24 24" fill="none">
+              <path d="M4 9.5v5h3.2L12 18V6L7.2 9.5H4Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+              <path class="sound-wave" d="M15.2 9a4.2 4.2 0 0 1 0 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              <path class="sound-wave" d="M17.8 6.7a7.6 7.6 0 0 1 0 10.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              <path class="sound-slash" d="M15 9l5 6M20 9l-5 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span class="dock-btn__text" id="soundLabel">环境音</span>
+        </button>
+      </div>
+
+      <div class="toast glass" id="toast" role="status" aria-live="polite"></div>
+
+      <div class="loader" id="loader" aria-label="正在加载海边场景">
+        <div class="loader__scene" aria-hidden="true">
+          <div class="loader__sun"></div>
+          <div class="loader__moon"></div>
+          <div class="loader__island">
+            <span class="loader__house"></span>
+            <span class="loader__roof"></span>
+            <span class="loader__palm"></span>
+            <span class="loader__palm loader__palm--two"></span>
+          </div>
+          <div class="loader__sea">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="loader__copy">
+          <p>SEASIDE LETTERS</p>
+          <h2>海边见月</h2>
+          <p class="loader__line" id="loaderLine">正在把海风装进小屋</p>
+        </div>
+        <div class="loader__progress" aria-hidden="true">
+          <i id="loaderBar"></i>
+        </div>
+        <div class="loader__percent"><span id="loaderPercent">00</span><small>%</small></div>
+      </div>
+
+      <noscript>
+        <div class="no-script">这片海岸需要启用 JavaScript 才能与你见面。</div>
+      </noscript>
+    </div>
+
+  </body>
+</html>
